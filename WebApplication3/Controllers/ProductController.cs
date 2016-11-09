@@ -12,13 +12,13 @@ namespace WebApplication3.Controllers
         public ActionResult Singleproduct()
         {
             ViewBag.Message = "Your product page.";
-
+            
             return View();
         }
         public ActionResult Browseproduct()
         {
             ViewBag.Message = "Your browseproduct page.";
-
+            
             return View();
         }
     }
