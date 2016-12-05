@@ -21,5 +21,11 @@ namespace WebApplication3.Controllers
             
             return View();
         }
+        public ActionResult Productshowcase()
+        {
+            ViewBag.Message = "Your Productshowcase page.";
+
+            return View();
+        }
     }
 }
