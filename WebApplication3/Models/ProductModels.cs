@@ -9,98 +9,63 @@ using WebApplication3.Data;
 
 namespace WebApplication3.Models
 {
-    public class ProductModel{
+    public class ProductModels
+    {
         private MySqlConnection conn;
-        private String product_id;
+        private int product_id;
         private String name;
         private String catagory;
-        private String price;
+        private int price;
         private String manufactorer;
         private ArrayList data = new ArrayList();
 
-        public ProductModel(String _id)
+        public List<int> intArr = new List<int> { 1, 2, 3, 4 };
+        private List<ProductModels> products = new List<ProductModels>();
+        private void BuildProducts(int amount)
+        {
+            for (int i = 0; i < amount; i++)
+            {
+                products.Add(new ProductModels(intArr[i]));
+            }
+        }
+
+        public ProductModels(int _id)
         {
             product_id = _id;
-            if (Check(product_id))
             {
                 conn = Connection.Initialize();
                 conn.Open();
                 MySqlCommand cmd = new MySqlCommand("SELECT * FROM product WHERE product_id=@product_id;", conn);
                 cmd.Prepare();
-                cmd.Parameters.AddWithValue("@pProduct_id", Int32.Parse(product_id));
-                using (MySqlDataReader rdr = cmd.ExecuteReader())
+                cmd.Parameters.AddWithValue("@product_id", (product_id));
+                using (MySqlDataReader pro = cmd.ExecuteReader())
                 {
-                    while (rdr.Read())
+                    while (pro.Read())
                     {
-                        data.Add(rdr[0]);
-                        data.Add(rdr[1]);
-                        data.Add(rdr[2]);
-                        data.Add(rdr[3]);
+                        data.Add(pro[0].ToString());
+                        data.Add(pro[1].ToString());
+                        data.Add(pro[2].ToString());
+                        data.Add(pro[3].ToString());
                     }
                 }
                 FillValues();
-                //conn.Close();
-            }
-            else
-            {
-                // return standard product not found page
+                conn.Close();
             }
         }
-
-        public bool Check(String nonParsedId)
-        {
-            if (nonParsedId != null)
-            {
-                char[] s = { '?', '&' };
-                String[] _id = nonParsedId.Split(s);
-                product_id = _id[0];
-                return (IsClean(product_id));
-            }
-            else
-            {
-                return false;
-            }
-        }
-        private bool IsClean(String str)
-        {
-            foreach (char c in str)
-            {
-                if (c < '0' || c > '9')
-                    return false;
-            }
-            return true;
-        }
-
         private void FillValues()
         {
-            name = data[2].ToString();
-            catagory = data[3].ToString();
-            price = data[5].ToString();
-            manufactorer = data[6].ToString();
+            name = data[1].ToString();
+            price = Int32.Parse(data[3].ToString());
+
         }
 
-        public String Product_id
-        {
-            get { return product_id; }
-        }
         public String Name
         {
             get { return name; }
-            set { name = value; }
         }
-        public String Catagory
-        {
-            get { return catagory; }
-            set { catagory = value; }
-        }
-        public String Price
+        public int Price
         {
             get { return price; }
-            set { price = value; }
-        }
-        public String Manufactorer
-        {
-            get { return manufactorer; }
         }
     }
 }

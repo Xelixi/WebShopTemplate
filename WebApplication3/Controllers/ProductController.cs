@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using WebApplication3.Models;
 
 namespace WebApplication3.Controllers
 {
@@ -24,8 +25,9 @@ namespace WebApplication3.Controllers
         public ActionResult Productshowcase()
         {
             ViewBag.Message = "Your Productshowcase page.";
-
-            return View();
+            int id = 1;
+            var product = new ProductModels(id);
+            return View(product);
         }
     }
 }
