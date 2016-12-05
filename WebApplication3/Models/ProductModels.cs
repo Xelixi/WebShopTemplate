@@ -9,10 +9,9 @@ using WebApplication3.Data;
 
 namespace WebApplication3.Models
 {
-    public class ProductModel
-    {
+    public class ProductModel{
         private MySqlConnection conn;
-        private String id;
+        private String product_id;
         private String name;
         private String catagory;
         private String price;
@@ -21,14 +20,14 @@ namespace WebApplication3.Models
 
         public ProductModel(String _id)
         {
-            id = _id;
-            if (Check(id))
+            product_id = _id;
+            if (Check(product_id))
             {
                 conn = Connection.Initialize();
                 conn.Open();
-                MySqlCommand cmd = new MySqlCommand("SELECT * FROM product WHERE pId=@pId;", conn);
+                MySqlCommand cmd = new MySqlCommand("SELECT * FROM product WHERE product_id=@product_id;", conn);
                 cmd.Prepare();
-                cmd.Parameters.AddWithValue("@pId", Int32.Parse(id));
+                cmd.Parameters.AddWithValue("@pProduct_id", Int32.Parse(product_id));
                 using (MySqlDataReader rdr = cmd.ExecuteReader())
                 {
                     while (rdr.Read())
@@ -54,8 +53,8 @@ namespace WebApplication3.Models
             {
                 char[] s = { '?', '&' };
                 String[] _id = nonParsedId.Split(s);
-                id = _id[0];
-                return (IsClean(id));
+                product_id = _id[0];
+                return (IsClean(product_id));
             }
             else
             {
@@ -80,9 +79,9 @@ namespace WebApplication3.Models
             manufactorer = data[6].ToString();
         }
 
-        public String Id
+        public String Product_id
         {
-            get { return id; }
+            get { return product_id; }
         }
         public String Name
         {
