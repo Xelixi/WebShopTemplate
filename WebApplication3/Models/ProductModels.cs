@@ -46,6 +46,8 @@ namespace WebApplication3.Models
                         data.Add(pro[1].ToString());
                         data.Add(pro[2].ToString());
                         data.Add(pro[3].ToString());
+                        data.Add(pro[4].ToString());
+
                     }
                 }
                 FillValues();
@@ -55,7 +57,9 @@ namespace WebApplication3.Models
         private void FillValues()
         {
             name = data[1].ToString();
+            catagory = data[2].ToString();
             price = Int32.Parse(data[3].ToString());
+            manufactorer = data[4].ToString();
 
         }
 
@@ -63,9 +67,17 @@ namespace WebApplication3.Models
         {
             get { return name; }
         }
+        public String Catagory
+        {
+            get { return catagory; }
+        }
         public int Price
         {
             get { return price; }
+        }
+        public String Manufactorer
+        {
+            get { return manufactorer; }
         }
     }
 }
