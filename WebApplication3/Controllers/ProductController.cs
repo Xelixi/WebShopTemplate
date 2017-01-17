@@ -9,6 +9,8 @@ namespace WebApplication3.Controllers
 {
     public class ProductController : Controller
     {
+       public static List<ProductModels> products = new List<ProductModels>();
+
         // GET: Product
         public ActionResult Singleproduct()
         {
@@ -22,12 +24,25 @@ namespace WebApplication3.Controllers
             
             return View();
         }
+
+
         public ActionResult Productshowcase()
+
         {
-            ViewBag.Message = "Your Productshowcase page.";
-            int id = 1;
-            var product = new ProductModels(id);
-            return View(product);
+            
+
+                ViewBag.Message = "Your Productshowcase page.";
+
+            for (int id = 1; id <= 3; id++)
+            {
+
+               
+                products.Add  (new ProductModels(id));
+
+
+            }
+                return View(products);
         }
+        
     }
 }
